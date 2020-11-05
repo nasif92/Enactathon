@@ -9,8 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.EditText;
 
 public class ActivityAddWasteItem extends AppCompatActivity {
+
+    final EditText itemInput = findViewById(R.id.getCategory);
+    final EditText descInput = findViewById(R.id.getDescription);
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +39,7 @@ public class ActivityAddWasteItem extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
 }

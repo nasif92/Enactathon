@@ -8,14 +8,22 @@ public class Item {
     String itemID;
     String itemPhoto;
     String itemDescription;
+    String location;
+
+
+
+    int rating;
     public Date itemUploadDate;
 
-    public Item(String category, String itemID, String itemPhoto, String itemDescription, Date itemUploadDate) {
+    public Item(String category, String itemID, String itemPhoto, String itemDescription,int rating, Date itemUploadDate, String location) {
+
         this.category = category;
         this.itemID = itemID;
         this.itemPhoto = itemPhoto;
         this.itemDescription = itemDescription;
         this.itemUploadDate = itemUploadDate;
+        this.rating = rating;
+        this.location = location;
     }
 
     public Item() {
@@ -51,6 +59,22 @@ public class Item {
 
     public void setItemDescription(String itemDescription) {
         this.itemDescription = itemDescription;
+    }
+
+    public void setLocation(String location) {
+        location = location;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public int getRating() {
+        return rating;
     }
 
     public String toString(){
