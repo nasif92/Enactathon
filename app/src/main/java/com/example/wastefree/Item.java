@@ -53,6 +53,10 @@ public class Item {
         this.itemDescription = itemDescription;
     }
 
+    public String toString(){
+        return this.itemID + "\n" + this.itemDescription;
+    }
+
     public Date getItemUploadDate() {
         return itemUploadDate;
     }
