@@ -1,6 +1,8 @@
 package com.example.wastefree;
 
 
+import android.location.Location;
+
 import java.util.Date;
 
 public class Item {
@@ -9,6 +11,7 @@ public class Item {
     String itemPhoto;
     String itemDescription;
     public Date itemUploadDate;
+    String location;
 
     public Item(String category, String itemID, String itemPhoto, String itemDescription, Date itemUploadDate) {
         this.category = category;
@@ -19,6 +22,16 @@ public class Item {
     }
 
     public Item() {
+    }
+
+    public Item(String itemName, String quantity, String location) {
+        this.category = itemName;
+        this.itemDescription = quantity;
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     public String getCategory() {
