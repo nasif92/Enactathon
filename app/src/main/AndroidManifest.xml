@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.wastefree">
 
     <application
@@ -21,7 +22,8 @@
         <activity
                 android:name=".CustomArrayAdapter"
                 android:label="@string/title_activity_custom_array_adapter"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="Instantiatable">
 
         </activity>
         <activity
