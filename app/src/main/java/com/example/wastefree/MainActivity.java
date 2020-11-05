@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onClick(View view) {
 
-               // Intent intent = new Intent(MainActivity.this, ActivityAddWasteItem.class);
+               Intent intent = new Intent(MainActivity.this, ActivityAddWasteItem.class);
                // intent.putExtra("USER_ID", userId);
                 Date d = new Date();
                 //intent.putExtra("DATE", d);
@@ -69,25 +69,25 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 item.setItemUploadDate(d);
                 //intent.putExtra("Item", (Serializable) item);
                 //intent.putExtra("EDIT","AddingMode");
-                //startActivity(intent);
+                startActivity(intent);
             }
         });
 
-        itemCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-               // itemDataList.clear();
-                for (QueryDocumentSnapshot doc : value) {
-                    Log.d("TEST", String.valueOf(doc.getData().get("itemName")));
-                    String itemName = (String) doc.getData().get("itemName");
-                    String quantity = (String) doc.getData().get("quantity");
-                    String location = (String) doc.getData().get("location");
-                    itemDataList.add(new Item(itemName, quantity, location));
-                    itemAdapter.add((new Item(itemName, quantity, location)));
-                }
-                itemAdapter.notifyDataSetChanged();
-            }
-        });
+//        itemCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//               // itemDataList.clear();
+//                for (QueryDocumentSnapshot doc : value) {
+//                    Log.d("TEST", String.valueOf(doc.getData().get("itemName")));
+//                    String itemName = (String) doc.getData().get("itemName");
+//                    String quantity = (String) doc.getData().get("quantity");
+//                    String location = (String) doc.getData().get("location");
+//                   itemDataList.add(new Item(itemName, quantity, location));
+//                   itemAdapter.add((new Item(itemName, quantity, location)));
+//                }
+//                itemAdapter.notifyDataSetChanged();
+//            }
+//        });
         Log.d("TEST", String.valueOf(itemAdapter.getItem(1)));
     }
 

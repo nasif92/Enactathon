@@ -16,7 +16,7 @@ public class Item {
 
     int rating;
     public Date itemUploadDate;
-    String location;
+
 
     public Item(String category, String itemID, String itemPhoto, String itemDescription,int rating, Date itemUploadDate, String location) {
 
@@ -38,9 +38,6 @@ public class Item {
         this.location = location;
     }
 
-    public String getLocation() {
-        return location;
-    }
 
     public String getCategory() {
         return category;

@@ -15,8 +15,7 @@ import java.io.Serializable;
 
 public class ActivityAddWasteItem extends AppCompatActivity implements Serializable {
 
-    final EditText itemInput = findViewById(R.id.getCategory);
-    final EditText descInput = findViewById(R.id.getDescription);
+
     
 
     @Override
@@ -26,6 +25,8 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final EditText itemInput = findViewById(R.id.getCategory);
+        final EditText descInput = findViewById(R.id.getDescription);
 
         /**
           Getting the important information out of the other activity

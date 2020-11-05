@@ -14,17 +14,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.view.View.OnKeyListener;
-import android.view.View;
 import android.view.KeyEvent;
 
 public class Welcome_screen extends AppCompatActivity {
-    final EditText postCodeInput = findViewById(R.id.editTextTextPostalAddress);
-    final Button okButton = findViewById(R.id.confirm);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
+
+        final EditText postCodeInput = findViewById(R.id.postalCode);
+        final Button okButton = findViewById(R.id.confirm);
 
         postCodeInput.setOnClickListener(new View.OnClickListener() {
             @Override
