@@ -16,12 +16,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#B9FFC8"
+            android:background="#56EC56"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_activity_add_waste_item" />
+    <include
+        layout="@layout/content_activity_add_waste_item"
+        android:background="@drawable/bg" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
