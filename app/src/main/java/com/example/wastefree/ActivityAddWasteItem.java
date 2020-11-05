@@ -10,7 +10,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 
-public class ActivityAddWasteItem extends AppCompatActivity {
+import java.io.Serializable;
+
+public class ActivityAddWasteItem extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

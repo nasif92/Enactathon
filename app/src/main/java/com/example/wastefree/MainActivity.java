@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Date;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Serializable {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("DATE", d);
                 Item item = new Item();
                 item.setItemUploadDate(d);
-              //  intent.putExtra("Item", (Parcelable) item);
+                //intent.putExtra("Item", (Serializable) item);
                 intent.putExtra("EDIT","AddingMode");
                 startActivity(intent);
             }
