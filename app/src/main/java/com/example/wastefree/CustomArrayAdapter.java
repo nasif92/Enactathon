@@ -29,6 +29,8 @@ public class CustomArrayAdapter extends ArrayAdapter<Item> {
         this.items = items;
         this.context = context;
     }
+
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {

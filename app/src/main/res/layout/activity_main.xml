@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3B6BFFB"
+    android:background="#00F8F8F8"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -41,7 +41,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:background="#FFFFFF"
-        app:backgroundTint="#DAC503"
+        app:backgroundTint="#FFE600"
         app:backgroundTintMode="src_over"
         app:srcCompat="@android:drawable/ic_input_add" />
 
