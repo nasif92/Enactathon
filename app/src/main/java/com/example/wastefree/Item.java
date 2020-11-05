@@ -32,8 +32,9 @@ public class Item {
     public Item() {
     }
 
-    public Item(String itemName, String quantity, String location) {
+    public Item(String ItemId, String itemName, String quantity, String location) {
         this.category = itemName;
+        this.itemID = ItemId;
         this.itemDescription = quantity;
         this.location = location;
     }

@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         this.itemList = findViewById(R.id.itemList);
 
         db = FirebaseFirestore.getInstance();
@@ -50,12 +49,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         final CollectionReference itemCollectionReference = db.collection("item");
         final ArrayAdapter itemAdapter = new CustomArrayAdapter(this, itemDataList);
         itemList.setAdapter(itemAdapter);
-        itemAdapter.add(new Item("sadf",
-                "ASdf","sdaf"));
-        itemAdapter.add(new Item("sadf",
-                "ASdf","sdaf"));
-        itemAdapter.add(new Item("sadf",
-                "ASdf","sdaf"));
+
         FloatingActionButton fab = findViewById(R.id.addPostButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,46 +66,22 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 startActivity(intent);
             }
         });
+//    public Item(String ItemId, String itemName, String quantity, String location) {
+        itemCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                itemDataList.clear();
+                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    // Log.d("TEST", String.valueOf(doc.getData().get("Province")));
+                    String itemId = (String) doc.getData().get("itemId");
+                    String itemName = (String) doc.getData().get("itemName");
+                   // String description = (String) doc.getData().get("quantity");
+                    String location = (String) doc.getData().get("location");
+                    itemDataList.add(new Item(itemId, itemName, "1300", "location"));
+                }
+                itemAdapter.notifyDataSetChanged();
+            }
+        });
 
-//        itemCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//               // itemDataList.clear();
-//                for (QueryDocumentSnapshot doc : value) {
-//                    Log.d("TEST", String.valueOf(doc.getData().get("itemName")));
-//                    String itemName = (String) doc.getData().get("itemName");
-//                    String quantity = (String) doc.getData().get("quantity");
-//                    String location = (String) doc.getData().get("location");
-//                   itemDataList.add(new Item(itemName, quantity, location));
-//                   itemAdapter.add((new Item(itemName, quantity, location)));
-//                }
-//                itemAdapter.notifyDataSetChanged();
-//            }
-//        });
-        Log.d("TEST", String.valueOf(itemAdapter.getItem(1)));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }
