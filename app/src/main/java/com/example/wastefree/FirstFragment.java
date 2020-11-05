@@ -4,10 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class FirstFragment extends Fragment {
 
@@ -23,12 +28,15 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
+        ListView list = view.findViewById(R.id.list_view);
+        ArrayList<Item> ItemList = new ArrayList<>();
+        Item test1 = new Item("test","000","mockPhoto","This is the first test",new Date());
+        Item test2 = new Item("test","001","mockPhoto","This is the second test",new Date());
+        ItemList.add(test1);
+        ItemList.add(test2);
+
+
+        ArrayAdapter<Item> arrayAdapter = new ArrayAdapter<Item>(this,android.R.layout.simple_expandable_list_item_1,ItemList);
+
     }
 }
