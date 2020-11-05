@@ -25,6 +25,14 @@
         layout="@layout/content_main"
         android:background="@drawable/bg"
         android:foreground="@drawable/bg" />
+    <ListView
+        android:id="@+id/itemList"
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:dividerHeight="5dp">
+    </ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addPostButton"

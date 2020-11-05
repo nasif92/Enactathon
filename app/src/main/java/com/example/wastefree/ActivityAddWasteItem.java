@@ -11,7 +11,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
-public class ActivityAddWasteItem extends AppCompatActivity {
+import java.io.Serializable;
+
+public class ActivityAddWasteItem extends AppCompatActivity implements Serializable {
 
     final EditText itemInput = findViewById(R.id.getCategory);
     final EditText descInput = findViewById(R.id.getDescription);
