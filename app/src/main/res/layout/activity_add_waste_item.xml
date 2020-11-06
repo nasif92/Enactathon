@@ -21,10 +21,10 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <include
         layout="@layout/content_activity_add_waste_item"
         android:background="@drawable/bg" />
-
 
     <EditText
         android:id="@+id/itemname"

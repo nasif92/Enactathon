@@ -63,8 +63,8 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
     ImageView picItem = findViewById(R.id.itemPic);
 
-    EditText itemName;
-    FloatingActionButton saveButton;
+    EditText itemName, quantity,location;
+    Button saveButton;
 
     FirebaseFirestore db;
     
@@ -76,12 +76,13 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_waste_item);
+        setContentView(R.layout.content_activity_add_waste_item);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         itemName = findViewById(R.id.getCategory);
-        saveButton = findViewById(R.id.fab);
+
+        saveButton = findViewById(R.id.saveButton);
         final EditText itemInput = findViewById(R.id.getCategory);
         final EditText descInput = findViewById(R.id.getDescription);
         final TextView userLoc = findViewById(R.id.location);
@@ -121,50 +122,55 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
             }
         });
 
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-            context = getApplicationContext();
-            super.onActivityResult(requestCode, resultCode, data);
+//        @Override
+//        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//            context = getApplicationContext();
+//            super.onActivityResult(requestCode, resultCode, data);
+//
+//            if(requestCode==CAMERA_ACCESS && resultCode == RESULT_OK)    {
+//                Bitmap bitmap= (Bitmap) data.getExtras().get("data");
+//                // todo: working on image compression
+//                ByteArrayOutputStream baos=new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+//                byte [] b =baos.toByteArray();
+//                String temp= Base64.encodeToString(b, Base64.DEFAULT);
+//                image = temp;
+//                profileBackground.setImageBitmap(bitmap);
+//            }
+//
+//            else if(requestCode==GALLERY_ACCESS) {
+//                try {
+//                    final Uri imageUri = data.getData();
+//                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+//                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+//                    imageStream.close();
+//
+//                    profileBackground.setImageBitmap(selectedImage);
+//                    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+//                    selectedImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
+//                    byte [] b =baos.toByteArray();
+//                    String temp=Base64.encodeToString(b, Base64.DEFAULT);
+//                    image = temp;
+//
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+//                } catch (IOException e){
+//                    e.printStackTrace();
+//                }
+//            }
+//            else  if (requestCode == MOODVIEW_ACCESS){
+//                finish();
+//            }
+//            else {
+//                Toast.makeText(context, "You haven't picked Image",Toast.LENGTH_LONG).show();
+//            }
+//        }
 
-            if(requestCode==CAMERA_ACCESS && resultCode == RESULT_OK)    {
-                Bitmap bitmap= (Bitmap) data.getExtras().get("data");
-                // todo: working on image compression
-                ByteArrayOutputStream baos=new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-                byte [] b =baos.toByteArray();
-                String temp= Base64.encodeToString(b, Base64.DEFAULT);
-                image = temp;
-                profileBackground.setImageBitmap(bitmap);
-            }
+        saveButton = findViewById(R.id.saveButton);
+        quantity = findViewById(R.id.getDescription);
+        location = findViewById(R.id.Location);
 
-            else if(requestCode==GALLERY_ACCESS) {
-                try {
-                    final Uri imageUri = data.getData();
-                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                    imageStream.close();
-
-                    profileBackground.setImageBitmap(selectedImage);
-                    ByteArrayOutputStream baos=new ByteArrayOutputStream();
-                    selectedImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
-                    byte [] b =baos.toByteArray();
-                    String temp=Base64.encodeToString(b, Base64.DEFAULT);
-                    image = temp;
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
-            else  if (requestCode == MOODVIEW_ACCESS){
-                finish();
-            }
-            else {
-                Toast.makeText(context, "You haven't picked Image",Toast.LENGTH_LONG).show();
-            }
-        }
 
         db = FirebaseFirestore.getInstance();
         FirebaseFirestore.setLoggingEnabled(true);
@@ -175,7 +181,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
          */
         final Item item = (Item) getIntent().getSerializableExtra("Item");
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -185,13 +191,15 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
                 HashMap<String, Object> data = new HashMap<>();
                 String Name = itemName.getText().toString();
+                String loc = location.getText().toString();
+                String quan = quantity.getText().toString();
                 String itemID = String.valueOf(Timestamp.now().hashCode());
-                Item item = new Item(Name, "otherStuff" , "songName","Alberta");
+                Item item = new Item(Name, Name , quan,loc);
                 item.setItemID(itemID);
                 // location is song name
                 data.put("itemName", Name);
-                data.put("quantity", 20);
-                data.put("location", "songName");
+                data.put("quantity", quan);
+                data.put("location", loc);
                 data.put("itemId", itemID);
                 db.collection("item").document(itemID)
                         .set(data)
