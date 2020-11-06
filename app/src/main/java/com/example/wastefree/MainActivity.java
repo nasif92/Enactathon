@@ -104,11 +104,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 else {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
                         Log.d(TAG, String.valueOf(doc.getData().get("itemId")));
-                        String item = (String) doc.getData().get("itemId");
+                        String itemId = (String) doc.getData().get("itemId");
                         String itemName = (String) doc.getData().get("itemName");
-
-
-                        itemDataList.add(new Item(item, itemName, "100", "SDAf"));
+                        //int rate = (int) doc.getData().get("Rate");
+                        Item item = new Item(itemId, itemName, "100", "SDAf");
+                        item.setRating(5);
+                        itemDataList.add(item);
                         itemAdapter.notifyDataSetChanged();
 
                     }

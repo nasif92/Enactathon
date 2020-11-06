@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static java.sql.Types.NULL;
+
 public class CustomArrayAdapter extends ArrayAdapter<Item> {
 
     private ArrayList<Item> items;
@@ -46,10 +48,15 @@ public class CustomArrayAdapter extends ArrayAdapter<Item> {
         TextView itemName = view.findViewById(R.id.itemname);
         TextView location = view.findViewById(R.id.location);
         TextView quantity = view.findViewById(R.id.amount);
+        TextView rating = view.findViewById(R.id.rating);
 
         itemName.setText(item.getCategory());
         location.setText(item.getLocation());
         quantity.setText(item.getItemDescription());
+        if (item.getRating() != NULL){
+            //rating.setText(item.getRating());
+        }
+
         return view;
 
     }
