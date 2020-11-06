@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                db.collection("Videos").document(item.getItemID()).delete()
+                                db.collection("Items").document(item.getItemID()).delete()
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
