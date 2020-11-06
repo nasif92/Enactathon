@@ -66,9 +66,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             public void onClick(View view) {
 
                Intent intent = new Intent(MainActivity.this, ActivityAddWasteItem.class);
-               // intent.putExtra("USER_ID", userId);
                 Date d = new Date();
-                //intent.putExtra("DATE", d);
                 Item item = new Item();
                 item.setItemUploadDate(d);
                 //intent.putExtra("Item", (Serializable) item);
@@ -76,23 +74,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 startActivity(intent);
             }
         });
-//    public Item(String ItemId, String itemName, String quantity, String location) {
 
-//        itemCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                itemDataList.clear();
-//                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-//                    // Log.d("TEST", String.valueOf(doc.getData().get("Province")));
-//                    String itemId = (String) doc.getData().get("itemId");
-//                    String itemName = (String) doc.getData().get("itemName");
-//                   // String description = (String) doc.getData().get("quantity");
-//                    String location = (String) doc.getData().get("location");
-//                    itemDataList.add(new Item(itemId, itemName, "1300", "location"));
-//                }
-//                itemAdapter.notifyDataSetChanged();
-//            }
-//        });
 
         itemCollectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -106,13 +88,17 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                         Log.d(TAG, String.valueOf(doc.getData().get("itemId")));
                         String itemId = (String) doc.getData().get("itemId");
                         String itemName = (String) doc.getData().get("itemName");
-                        //int rate = (int) doc.getData().get("Rate");
-                        Item item = new Item(itemId, itemName, "100", "SDAf");
-                        item.setRating(5);
+                        int rate =Integer.valueOf(doc.getData().get("Rate").toString());
+                        String location = (String) doc.getData().get("location");
+                        String quantity = (String) doc.getData().get("quantity");
+                        //     public Item(String ItemId, String itemName, String quantity, int rating,String location) {
+                        Item item = new Item(itemId, itemName, quantity, rate, location);
+
                         itemDataList.add(item);
-                        itemAdapter.notifyDataSetChanged();
 
                     }
+                    itemAdapter.notifyDataSetChanged();
+
                 }
 
             }

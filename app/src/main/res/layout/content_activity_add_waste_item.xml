@@ -76,25 +76,26 @@
         android:id="@+id/rating"
         android:layout_width="52dp"
         android:layout_height="21dp"
-        android:background="#8B00FD29"
+        android:background="#8BDCBE06"
         app:layout_constraintBottom_toTopOf="@+id/Location"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.69"
+        app:layout_constraintHorizontal_bias="0.398"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getDescription"
-        app:layout_constraintVertical_bias="0.708" />
+        app:layout_constraintVertical_bias="0.719" />
 
     <EditText
         android:id="@+id/Fresh"
         android:layout_width="105dp"
         android:layout_height="42dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="100dp"
+        android:editable="false"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
         android:text="Freshness"
         app:layout_constraintEnd_toStartOf="@+id/rating"
-        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintHorizontal_bias="0.421"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getDescription" />
 
@@ -103,15 +104,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#92FFFFFF"
+        android:editable="true"
         android:ems="10"
         android:gravity="center"
+        android:hint="Location"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.646"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Fresh"
-        app:layout_constraintVertical_bias="0.763" />
+        app:layout_constraintVertical_bias="0.237" />
 
     <Button
         android:id="@+id/camera"
@@ -155,23 +158,26 @@
 
     <TextView
         android:id="@+id/AmountText"
-        android:layout_width="57dp"
-        android:layout_height="28dp"
+        android:layout_width="95dp"
+        android:layout_height="27dp"
         android:text="Amount"
+        android:textColor="#151515"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/Fresh"
         app:layout_constraintEnd_toStartOf="@+id/Amount"
+        app:layout_constraintHorizontal_bias="0.79"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getDescription"
-        app:layout_constraintVertical_bias="0.256" />
+        app:layout_constraintVertical_bias="0.246" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="100dp"
         android:text="Save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating" />
 
