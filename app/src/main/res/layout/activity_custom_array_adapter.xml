@@ -13,9 +13,11 @@
         android:background="#68FFE9DC">
 
         <ImageView
+            android:id="@+id/img"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="4dp"
+            android:background="@drawable/empty_pic"
             android:src="@drawable/common_full_open_on_phone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -41,16 +41,14 @@
 
     <ImageView
         android:id="@+id/itemPic"
-        android:layout_width="270dp"
-        android:layout_height="196dp"
+        android:layout_width="326dp"
+        android:layout_height="248dp"
         android:background="@drawable/empty_pic"
         android:contentDescription="Add a Picture"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.163"
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
@@ -85,23 +83,10 @@
         app:layout_constraintVertical_bias="0.708" />
 
     <EditText
-        android:id="@+id/Fresh"
-        android:layout_width="105dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="136dp"
-        android:ems="10"
-        android:gravity="center"
-        android:inputType="textPersonName"
-        android:text="Freshness"
-        app:layout_constraintEnd_toStartOf="@+id/rating"
-        app:layout_constraintHorizontal_bias="0.377"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getDescription" />
-
-    <EditText
         android:id="@+id/Location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:background="#92FFFFFF"
         android:ems="10"
         android:gravity="center"
@@ -109,34 +94,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Fresh"
-        app:layout_constraintVertical_bias="0.763" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <Button
         android:id="@+id/camera"
         android:layout_width="38dp"
         android:layout_height="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/camera_info"
         app:layout_constraintBottom_toBottomOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.563"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemPic"
-        app:layout_constraintVertical_bias="0.585" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.252" />
 
     <Button
         android:id="@+id/gallery"
         android:layout_width="36dp"
         android:layout_height="31dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:background="@drawable/gallery_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toStartOf="@+id/camera"
-        app:layout_constraintHorizontal_bias="0.913"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemPic"
-        app:layout_constraintVertical_bias="0.595" />
-
+        app:layout_constraintBottom_toTopOf="@+id/camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551" />
 
     <EditText
         android:id="@+id/Amount"
@@ -146,33 +129,42 @@
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/Fresh"
+        app:layout_constraintBottom_toTopOf="@+id/freshness"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintHorizontal_bias="0.743"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getDescription"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintTop_toBottomOf="@+id/getDescription" />
 
     <TextView
         android:id="@+id/AmountText"
         android:layout_width="57dp"
         android:layout_height="28dp"
         android:text="Amount"
-        app:layout_constraintBottom_toTopOf="@+id/Fresh"
+        app:layout_constraintBottom_toTopOf="@+id/freshness"
         app:layout_constraintEnd_toStartOf="@+id/Amount"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getDescription"
-        app:layout_constraintVertical_bias="0.256" />
+        app:layout_constraintTop_toBottomOf="@+id/getDescription" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Save"
+        android:text="Upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating" />
+
+    <TextView
+        android:id="@+id/freshness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Freshness"
+        app:layout_constraintBottom_toTopOf="@+id/Location"
+        app:layout_constraintEnd_toStartOf="@+id/rating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getDescription"
+        app:layout_constraintVertical_bias="0.701" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
