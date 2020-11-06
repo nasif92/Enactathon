@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -35,14 +36,16 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements Serializable {
     ListView itemList;
     ArrayList<Item> itemDataList = new ArrayList<>();
-    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final String TAG = "Sample";
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        this.itemList = findViewById(R.id.itemList);
+        itemList = findViewById(R.id.itemList);
+        FirebaseFirestore db;
 
         db = FirebaseFirestore.getInstance();
 
@@ -71,17 +74,26 @@ public class MainActivity extends AppCompatActivity implements Serializable {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 itemDataList.clear();
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    // Log.d("TEST", String.valueOf(doc.getData().get("Province")));
-                    String itemId = (String) doc.getData().get("itemId");
-                    String itemName = (String) doc.getData().get("itemName");
-                   // String description = (String) doc.getData().get("quantity");
-                    String location = (String) doc.getData().get("location");
-                    itemDataList.add(new Item(itemId, itemName, "1300", "location"));
+                if (e!=null){
+                    Log.d(TAG,"Error:"+e.getMessage());
                 }
-                itemAdapter.notifyDataSetChanged();
+                else {
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
+                        Log.d(TAG, String.valueOf(doc.getData().get("itemId")));
+                        String item = (String) doc.getData().get("itemId");
+                        String itemName = (String) doc.getData().get("itemName");
+
+
+                        itemDataList.add(new Item(item, itemName, "100", "SDAf"));
+                        itemAdapter.notifyDataSetChanged();
+
+                    }
+                }
+
             }
         });
+
+
 
     }
 }

@@ -25,8 +25,8 @@ import java.util.HashMap;
 
 public class ActivityAddWasteItem extends AppCompatActivity implements Serializable {
 
-    EditText itemName;
-    FloatingActionButton saveButton;
+    EditText itemName, quantity,location;
+    Button saveButton;
 
     FirebaseFirestore db;
     
@@ -37,13 +37,13 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_waste_item);
+        setContentView(R.layout.content_activity_add_waste_item);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         itemName = findViewById(R.id.getCategory);
-        saveButton = findViewById(R.id.fab);
-        final EditText itemInput = findViewById(R.id.getCategory);
-        final EditText descInput = findViewById(R.id.getDescription);
+        saveButton = findViewById(R.id.saveButton);
+        quantity = findViewById(R.id.getDescription);
+        location = findViewById(R.id.Location);
 
         db = FirebaseFirestore.getInstance();
         FirebaseFirestore.setLoggingEnabled(true);
@@ -64,13 +64,15 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
                 HashMap<String, Object> data = new HashMap<>();
                 String Name = itemName.getText().toString();
+                String loc = location.getText().toString();
+                String quan = quantity.getText().toString();
                 String itemID = String.valueOf(Timestamp.now().hashCode());
-                Item item = new Item(Name, "otherStuff" , "songName","Alberta");
+                Item item = new Item(Name, Name , quan,loc);
                 item.setItemID(itemID);
                 // location is song name
                 data.put("itemName", Name);
-                data.put("quantity", 20);
-                data.put("location", "songName");
+                data.put("quantity", quan);
+                data.put("location", loc);
                 data.put("itemId", itemID);
                 db.collection("item").document(itemID)
                         .set(data)
