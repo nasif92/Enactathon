@@ -52,6 +52,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
     EditText itemName, quantity,location;
     Button saveButton;
 
+
     FirebaseFirestore db;
     
 
@@ -110,9 +111,6 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
         });
 
 
-
-
-
         saveButton = findViewById(R.id.saveButton);
         quantity = findViewById(R.id.getDescription);
         location = findViewById(R.id.Location);
@@ -140,6 +138,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 String loc = location.getText().toString();
                 String quan = quantity.getText().toString();
                 String itemID = String.valueOf(Timestamp.now().hashCode());
+                int rate = rating.getSelectedItemPosition();
                 Item item = new Item(Name, Name , quan,loc);
                 item.setItemID(itemID);
                 // location is song name
@@ -147,6 +146,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 data.put("quantity", quan);
                 data.put("location", loc);
                 data.put("itemId", itemID);
+                data.put("Rate", rate);
                 db.collection("Items").document(itemID)
                         .set(data)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
