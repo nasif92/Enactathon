@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "133780569412",
+    "firebase_url": "https://wastefree-d0213.firebaseio.com",
+    "project_id": "wastefree-d0213",
+    "storage_bucket": "wastefree-d0213.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133780569412:android:9da8ac2d27c4be69c2eb11",
+        "android_client_info": {
+          "package_name": "com.example.wastefree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133780569412-gbmur75r3ob351mjp6ebpdcaa0nvnpbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbsCsIMk4C47MFcjYcsJSkYZBEuRD4Vp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "133780569412-gbmur75r3ob351mjp6ebpdcaa0nvnpbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
