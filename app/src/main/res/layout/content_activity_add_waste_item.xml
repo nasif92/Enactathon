@@ -41,8 +41,10 @@
 
     <ImageView
         android:id="@+id/itemPic"
-        android:layout_width="334dp"
-        android:layout_height="183dp"
+        android:layout_width="270dp"
+        android:layout_height="196dp"
+        android:background="@drawable/empty_pic"
+        android:contentDescription="Add a Picture"
         app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -54,7 +56,7 @@
     <EditText
         android:id="@+id/getDescription"
         android:layout_width="0dp"
-        android:layout_height="110dp"
+        android:layout_height="55dp"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginEnd="24dp"
@@ -68,7 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getCategory"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.07" />
 
     <Spinner
         android:id="@+id/rating"
@@ -80,19 +82,19 @@
         app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getDescription"
-        app:layout_constraintVertical_bias="0.443" />
+        app:layout_constraintVertical_bias="0.708" />
 
     <EditText
         android:id="@+id/Fresh"
         android:layout_width="105dp"
         android:layout_height="42dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="136dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="textPersonName"
         android:text="Freshness"
         app:layout_constraintEnd_toStartOf="@+id/rating"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/getDescription" />
 
@@ -109,7 +111,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Fresh"
-        app:layout_constraintVertical_bias="0.325" />
+        app:layout_constraintVertical_bias="0.763" />
 
     <Button
         android:id="@+id/camera"
@@ -134,5 +136,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/itemPic"
         app:layout_constraintVertical_bias="0.595" />
+
+    <EditText
+        android:id="@+id/Amount"
+        android:layout_width="115dp"
+        android:layout_height="28dp"
+        android:background="@color/cardview_light_background"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/Fresh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.693"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getDescription"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <TextView
+        android:id="@+id/AmountText"
+        android:layout_width="57dp"
+        android:layout_height="28dp"
+        android:text="Amount"
+        app:layout_constraintBottom_toTopOf="@+id/Fresh"
+        app:layout_constraintEnd_toStartOf="@+id/Amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getDescription"
+        app:layout_constraintVertical_bias="0.256" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

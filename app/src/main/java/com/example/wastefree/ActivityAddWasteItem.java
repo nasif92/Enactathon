@@ -1,6 +1,11 @@
 package com.example.wastefree;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -11,10 +16,12 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
@@ -22,9 +29,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -34,6 +46,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -42,8 +55,13 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
     String category;
     String desc;
     Integer rating;
+    String image;
 
+    private Context context;
+    public static final int CAMERA_ACCESS = 1001;
+    public static final int RESULT_OK = -1;
 
+    ImageView picItem = findViewById(R.id.itemPic);
 
     EditText itemName;
     FloatingActionButton saveButton;
@@ -94,11 +112,59 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
             @Override
             public void onClick(View v) {
                 Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                try {
-//                    startActivityForResult(camera, REQUEST_IMAGE_CAPTURE);
-//                }
+                try {
+                    startActivityForResult(camera, 1);
+                }catch (ActivityNotFoundException e){
+                    Snackbar.make(v, "No camera detected", Snackbar.LENGTH_LONG)
+                            .setAction("Try Again",null).show();
+                }
             }
         });
+
+        @Override
+        protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+            context = getApplicationContext();
+            super.onActivityResult(requestCode, resultCode, data);
+
+            if(requestCode==CAMERA_ACCESS && resultCode == RESULT_OK)    {
+                Bitmap bitmap= (Bitmap) data.getExtras().get("data");
+                // todo: working on image compression
+                ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+                byte [] b =baos.toByteArray();
+                String temp= Base64.encodeToString(b, Base64.DEFAULT);
+                image = temp;
+                profileBackground.setImageBitmap(bitmap);
+            }
+
+            else if(requestCode==GALLERY_ACCESS) {
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    imageStream.close();
+
+                    profileBackground.setImageBitmap(selectedImage);
+                    ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                    selectedImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
+                    byte [] b =baos.toByteArray();
+                    String temp=Base64.encodeToString(b, Base64.DEFAULT);
+                    image = temp;
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+            }
+            else  if (requestCode == MOODVIEW_ACCESS){
+                finish();
+            }
+            else {
+                Toast.makeText(context, "You haven't picked Image",Toast.LENGTH_LONG).show();
+            }
+        }
 
         db = FirebaseFirestore.getInstance();
         FirebaseFirestore.setLoggingEnabled(true);
