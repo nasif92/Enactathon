@@ -139,8 +139,8 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 String quan = quantity.getText().toString();
                 String itemID = String.valueOf(Timestamp.now().hashCode());
                 int rate = rating.getSelectedItemPosition();
-                Item item = new Item(Name, Name , quan,loc);
-                item.setItemID(itemID);
+               // Item item = new Item(itemID, Name , quan,loc);
+                //item.setItemID(itemID);
                 // location is song name
                 data.put("itemName", Name);
                 data.put("quantity", quan);

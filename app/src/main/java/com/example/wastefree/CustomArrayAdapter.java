@@ -49,12 +49,15 @@ public class CustomArrayAdapter extends ArrayAdapter<Item> {
         TextView location = view.findViewById(R.id.location);
         TextView quantity = view.findViewById(R.id.amount);
         TextView rating = view.findViewById(R.id.rating);
+        if (item.getRating() != NULL){
 
+                    rating.setText(String.valueOf(item.getRating()));
+        }
         itemName.setText(item.getCategory());
         location.setText(item.getLocation());
         quantity.setText(item.getItemDescription());
+        location.setText(item.getLocation());
         if (item.getRating() != NULL){
-            //rating.setText(item.getRating());
         }
 
         return view;
