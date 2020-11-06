@@ -15,15 +15,16 @@
     <include
         android:id="@+id/include"
         layout="@layout/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@drawable/bg"
         android:foreground="@drawable/bg" />
 
     <ListView
         android:id="@+id/itemList"
         android:layout_width="match_parent"
-        android:layout_height="671dp"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
         android:dividerHeight="5dp"
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="center"></ListView>

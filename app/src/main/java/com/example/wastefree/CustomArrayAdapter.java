@@ -1,21 +1,14 @@
 package com.example.wastefree;
 
 import android.content.Context;
-import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -49,12 +42,15 @@ public class CustomArrayAdapter extends ArrayAdapter<Item> {
         TextView location = view.findViewById(R.id.location);
         TextView quantity = view.findViewById(R.id.amount);
         TextView rating = view.findViewById(R.id.rating);
+        if (item.getRating() != NULL){
 
+                    rating.setText(String.valueOf(item.getRating()));
+        }
         itemName.setText(item.getCategory());
         location.setText(item.getLocation());
         quantity.setText(item.getItemDescription());
+        location.setText(item.getLocation());
         if (item.getRating() != NULL){
-            //rating.setText(item.getRating());
         }
 
         return view;

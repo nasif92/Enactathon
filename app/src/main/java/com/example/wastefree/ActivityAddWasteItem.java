@@ -57,8 +57,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
 
     FirebaseFirestore db;
-//    Intent intent = getIntent();
-//    String postCode = intent.getStringExtra("postCode");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +74,10 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
         saveButton = findViewById(R.id.saveButton);
         final EditText itemInput = findViewById(R.id.getCategory);
         final EditText descInput = findViewById(R.id.getDescription);
-        final TextView userLoc = findViewById(R.id.location);
-        //userLoc.setText(postCode);
+        final EditText userLoc = findViewById(R.id.Location);
+
+        //userLoc.setText(String.valueOf(Welcome_screen.postCode));
+
         final Spinner rating = findViewById(R.id.rating);
         final Button galleryLaunch = findViewById(R.id.gallery);
         final Button cameraLaunch = findViewById(R.id.camera);
@@ -152,11 +153,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 String itemID = String.valueOf(Timestamp.now().hashCode());
                 String description = desc;
                 int rate = rating.getSelectedItemPosition();
-                Item item = new Item(Name, Name , quan,loc);
-                item.setItemID(itemID);
-                item.setItemPhoto(image);
-                item.setRating(rate);
-                item.setItemDescription(description);
+
                 // location is song name
                 data.put("itemName", Name);
                 data.put("quantity", quan);
