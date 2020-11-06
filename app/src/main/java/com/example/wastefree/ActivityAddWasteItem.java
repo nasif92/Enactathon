@@ -55,9 +55,10 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
     EditText itemName, quantity,location;
     Button saveButton;
 
-    FirebaseFirestore db;
-    
 
+    FirebaseFirestore db;
+//    Intent intent = getIntent();
+//    String postCode = intent.getStringExtra("postCode");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
         final EditText itemInput = findViewById(R.id.getCategory);
         final EditText descInput = findViewById(R.id.getDescription);
         final TextView userLoc = findViewById(R.id.location);
+        //userLoc.setText(postCode);
         final Spinner rating = findViewById(R.id.rating);
         final Button galleryLaunch = findViewById(R.id.gallery);
         final Button cameraLaunch = findViewById(R.id.camera);
@@ -121,9 +123,6 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
             }
         });
 
-
-
-
         saveButton = findViewById(R.id.saveButton);
         quantity = findViewById(R.id.getDescription);
         location = findViewById(R.id.Location);
@@ -151,13 +150,19 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 String loc = location.getText().toString();
                 String quan = quantity.getText().toString();
                 String itemID = String.valueOf(Timestamp.now().hashCode());
+                String description = desc;
+                int rate = rating.getSelectedItemPosition();
                 Item item = new Item(Name, Name , quan,loc);
                 item.setItemID(itemID);
+                item.setItemPhoto(image);
+                item.setRating(rate);
+                item.setItemDescription(description);
                 // location is song name
                 data.put("itemName", Name);
                 data.put("quantity", quan);
                 data.put("location", loc);
                 data.put("itemId", itemID);
+                data.put("Rate", rate);
                 db.collection("Items").document(itemID)
                         .set(data)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -3,39 +3,29 @@ package com.example.wastefree;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
 import java.io.Serializable;
-import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Date;
 
 
@@ -43,15 +33,15 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ListView itemList;
     ArrayList<Item> itemDataList = new ArrayList<>();
     FirebaseFirestore db;
-
-
+//    Intent intent = getIntent();
+//    String postCode = intent.getStringExtra("postCode");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final String TAG = "Sample";
 
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
         itemList = findViewById(R.id.itemList);
 
         db = FirebaseFirestore.getInstance();
@@ -73,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 item.setItemUploadDate(d);
                 //intent.putExtra("Item", (Serializable) item);
                 //intent.putExtra("EDIT","AddingMode");
+                //intent.putExtra("postCode",postCode);
                 startActivity(intent);
             }
         });
@@ -104,11 +95,12 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 else {
                     for (QueryDocumentSnapshot doc : queryDocumentSnapshots){
                         Log.d(TAG, String.valueOf(doc.getData().get("itemId")));
-                        String item = (String) doc.getData().get("itemId");
+                        String itemId = (String) doc.getData().get("itemId");
                         String itemName = (String) doc.getData().get("itemName");
-
-
-                        itemDataList.add(new Item(item, itemName, "100", "SDAf"));
+                        //int rate = (int) doc.getData().get("Rate");
+                        Item item = new Item(itemId, itemName, "100", "SDAf");
+                        item.setRating(5);
+                        itemDataList.add(item);
                         itemAdapter.notifyDataSetChanged();
 
                     }

@@ -1,20 +1,25 @@
 package com.example.wastefree;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
+import android.os.Bundle;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
+
+import static java.sql.Types.NULL;
 
 public class CustomArrayAdapter extends ArrayAdapter<Item> {
 
@@ -43,16 +48,15 @@ public class CustomArrayAdapter extends ArrayAdapter<Item> {
         TextView itemName = view.findViewById(R.id.itemname);
         TextView location = view.findViewById(R.id.location);
         TextView quantity = view.findViewById(R.id.amount);
-        ImageView image = view.findViewById(R.id.img);
+        TextView rating = view.findViewById(R.id.rating);
+
         itemName.setText(item.getCategory());
         location.setText(item.getLocation());
         quantity.setText(item.getItemDescription());
-        String itemPic = item.getItemPhoto();
-        if(itemPic!=null) {
-            byte[] encodeByte = Base64.decode(item.getItemPhoto(), Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            image.setImageBitmap(bitmap);
+        if (item.getRating() != NULL){
+            //rating.setText(item.getRating());
         }
+
         return view;
 
     }

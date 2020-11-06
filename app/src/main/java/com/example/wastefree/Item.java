@@ -1,9 +1,9 @@
 package com.example.wastefree;
 
 
-import android.location.Location;
-
 import java.util.Date;
+
+import static java.sql.Types.NULL;
 
 public class Item {
     String category;
@@ -85,7 +85,12 @@ public class Item {
     }
 
     public int getRating() {
-        return rating;
+        if (this.rating != NULL){
+            return rating;
+        }
+        else  {
+            return 0;
+        }
     }
 
     public String toString(){
