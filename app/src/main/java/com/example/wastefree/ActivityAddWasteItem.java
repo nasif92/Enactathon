@@ -24,11 +24,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firestore.v1.WriteResult;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import java.util.Collections;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class ActivityAddWasteItem extends AppCompatActivity implements Serializable, AdapterView.OnItemSelectedListener {
     String category;
@@ -119,7 +125,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
           Getting the important information out of the other activity
          getting the item
          */
-        final Item item = (Item) getIntent().getSerializableExtra("Item");
+        //final Item item = (Item) getIntent().getSerializableExtra("Item");
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +147,7 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 data.put("quantity", quan);
                 data.put("location", loc);
                 data.put("itemId", itemID);
-                db.collection("item").document(itemID)
+                db.collection("Items").document(itemID)
                         .set(data)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
