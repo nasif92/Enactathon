@@ -4,8 +4,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,17 +29,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.WriteResult;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import java.util.Collections;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class ActivityAddWasteItem extends AppCompatActivity implements Serializable, AdapterView.OnItemSelectedListener {
     String category;
@@ -54,7 +57,6 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
 
 
     FirebaseFirestore db;
-    
 
 
     @Override
@@ -72,7 +74,10 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
         saveButton = findViewById(R.id.saveButton);
         final EditText itemInput = findViewById(R.id.getCategory);
         final EditText descInput = findViewById(R.id.getDescription);
-        final TextView userLoc = findViewById(R.id.location);
+        final EditText userLoc = findViewById(R.id.Location);
+
+        //userLoc.setText(String.valueOf(Welcome_screen.postCode));
+
         final Spinner rating = findViewById(R.id.rating);
         final Button galleryLaunch = findViewById(R.id.gallery);
         final Button cameraLaunch = findViewById(R.id.camera);
@@ -110,6 +115,14 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
             }
         });
 
+        galleryLaunch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_ACCESS);
+            }
+        });
 
         saveButton = findViewById(R.id.saveButton);
         quantity = findViewById(R.id.getDescription);
@@ -138,9 +151,9 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
                 String loc = location.getText().toString();
                 String quan = quantity.getText().toString();
                 String itemID = String.valueOf(Timestamp.now().hashCode());
+                String description = desc;
                 int rate = rating.getSelectedItemPosition();
-               // Item item = new Item(itemID, Name , quan,loc);
-                //item.setItemID(itemID);
+
                 // location is song name
                 data.put("itemName", Name);
                 data.put("quantity", quan);
@@ -191,57 +204,37 @@ public class ActivityAddWasteItem extends AppCompatActivity implements Serializa
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             picItem.setImageBitmap(imageBitmap);
+            picItem.setBackgroundColor(Color.rgb(255, 255, 255));
+            ByteArrayOutputStream baos=new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+            byte [] b =baos.toByteArray();
+            String temp= Base64.encodeToString(b, Base64.DEFAULT);
+            image = temp;
         }
+        else if(requestCode==GALLERY_ACCESS) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                imageStream.close();
+
+                picItem.setImageBitmap(selectedImage);
+                picItem.setBackgroundColor(Color.rgb(255, 255, 255));
+                ByteArrayOutputStream baos=new ByteArrayOutputStream();
+                selectedImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
+                byte [] b =baos.toByteArray();
+                String temp=Base64.encodeToString(b, Base64.DEFAULT);
+                image = temp;
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
     }
-
-
-
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        context = getApplicationContext();
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode==CAMERA_ACCESS && resultCode == RESULT_OK)    {
-//            Bitmap bitmap= (Bitmap) data.getExtras().get("data");
-//            // todo: working on image compression
-//            ByteArrayOutputStream baos=new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-//            byte [] b =baos.toByteArray();
-//            String temp= Base64.encodeToString(b, Base64.DEFAULT);
-//            image = temp;
-//            picItem.setImageBitmap(bitmap);
-//        }
-//
-//        else if(requestCode==GALLERY_ACCESS) {
-//            try {
-//                final Uri imageUri = data.getData();
-//                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-//                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-//                imageStream.close();
-//
-//                picItem.setImageBitmap(selectedImage);
-//                ByteArrayOutputStream baos=new ByteArrayOutputStream();
-//                selectedImage.compress(Bitmap.CompressFormat.JPEG,100, baos);
-//                byte [] b =baos.toByteArray();
-//                String temp=Base64.encodeToString(b, Base64.DEFAULT);
-//                image = temp;
-//
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//                Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        else {
-//            Toast.makeText(context, "You haven't picked Image",Toast.LENGTH_LONG).show();
-//        }
-//    }
-
-
-
-
 
 
 

@@ -3,39 +3,29 @@ package com.example.wastefree;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
-
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
 import java.io.Serializable;
-import java.security.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Date;
 
 
@@ -44,17 +34,18 @@ public class MainActivity extends AppCompatActivity implements Serializable {
     ArrayList<Item> itemDataList = new ArrayList<>();
     FirebaseFirestore db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final String TAG = "Sample";
 
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
         itemList = findViewById(R.id.itemList);
 
         db = FirebaseFirestore.getInstance();
+
+
 
         final CollectionReference itemCollectionReference = db.collection("Items");
         final ArrayAdapter itemAdapter = new CustomArrayAdapter(this, itemDataList);
@@ -69,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 Date d = new Date();
                 Item item = new Item();
                 item.setItemUploadDate(d);
-                //intent.putExtra("Item", (Serializable) item);
-                //intent.putExtra("EDIT","AddingMode");
                 startActivity(intent);
             }
         });
@@ -114,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 new AlertDialog.Builder(MainActivity.this)
                         .setIcon(android.R.drawable.ic_delete)
                         .setTitle("Are you sure")
-                        .setMessage("Would you like to delete this song?")
+                        .setMessage("Would you like to delete this item?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             @Override
@@ -141,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements Serializable {
                 return false;
             }
         });
+
 
 
 

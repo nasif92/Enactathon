@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/bg_blur"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <View
@@ -107,7 +107,6 @@
         android:editable="true"
         android:ems="10"
         android:gravity="center"
-        android:hint="Location"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

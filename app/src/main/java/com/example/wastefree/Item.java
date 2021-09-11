@@ -1,8 +1,6 @@
 package com.example.wastefree;
 
 
-import android.location.Location;
-
 import java.util.Date;
 
 import static java.sql.Types.NULL;
